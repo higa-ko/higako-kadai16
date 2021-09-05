@@ -9,17 +9,31 @@ import UIKit
 
 class InputViewController: UIViewController {
 
-    var itemName: String?
+    enum Mode {
+        case add
+        case edit(String)
+    }
+
+    private(set) var editedItemName: String?
+
+    var mode: Mode?
 
     @IBOutlet private weak var inputTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        inputTextField.text = itemName
+        guard let mode = mode else { return }
+
+        switch mode {
+        case .add:
+            break
+        case .edit(let name):
+            inputTextField.text = name
+        }
     }
 
     @IBAction func changeInputTextField(_ sender: UITextField) {
-        itemName = inputTextField.text ?? ""
+        editedItemName = inputTextField.text ?? ""
     }
 }
